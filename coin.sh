@@ -1,11 +1,3 @@
-# CachedBashCoinTicker
-A simple script allowing to get crypto coins price without flooding free APIs
-
-This is more a helper than a tool. The code is commented so you can reuse it inside your own code.
-
-You need `jq` and `curl` to use this.
-
-```bash
 #!/usr/bin/env bash
 
 # This function makes a request and stores it as cached file.
@@ -47,14 +39,12 @@ cacheRequest(){
   echo "$RES"
 }
 
-# Example:
-
 # Set cache timeout (seconds)
 export TIMEOUT=120
 # XMR data
-XMR=$(cacheRequest "XMR" || exit 1) # Call the API
-XMRUSD=$(echo $XMR | jq .USD ) # Get USD response
-XMREUR=$(echo $XMR | jq .EUR ) # Get EUR response
+XMR=$(cacheRequest "XMR" || exit 1)
+XMRUSD=$(echo $XMR | jq .USD )
+XMREUR=$(echo $XMR | jq .EUR )
 # BTC data
 BTC=$(cacheRequest "BTC" || exit 1)
 BTCUSD=$(echo $BTC | jq .USD )
@@ -73,6 +63,3 @@ echo -e "₿;\t$BTCEUR €;\t $BTCUSD\$"
 echo -e "Ɱ;\t$XMREUR €;\t $XMRUSD\$"
 echo -e "Ð;\t$DOGEEUR €;\t $DOGEUSD\$"
 echo -e "Ξ;\t$ETHEUR €;\t $ETHUSD\$"
-
-```
-
